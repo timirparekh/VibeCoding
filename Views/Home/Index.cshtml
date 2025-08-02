@@ -63,7 +63,13 @@
         </div>
         <button class="submit-btn" id="submitBtn" type="submit">Submit</button>
     </form>
+
     <div id="uploadMessageBox" style="display:none; margin-top:20px; background:#e6ffed; color:#155724; border-radius:8px; padding:16px; text-align:center;"></div>
+
+    <div id="docxContentSection" style="display:@(TempData["DocxContent"] != null ? "block" : "none"); margin-top:24px; background:#f0f7ff; color:#222; border-radius:12px; padding:20px; text-align:left; min-height:80px; width:100%;">
+        <h3 style="color:#1b6ec2; font-size:1.2rem; margin-bottom:10px;">Document Contents</h3>
+        <pre style="white-space:pre-wrap; word-break:break-word; font-size:1rem;">@TempData["DocxContent"]</pre>
+    </div>
 </style>
 
 <script>

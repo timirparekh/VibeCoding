@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Packaging;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using VibeCoding.Models;
@@ -32,6 +33,51 @@ public class HomeController : Controller
         }
 
         TempData["UploadMessage"] = "Success in uploading file";
+
+        // Only process DOCX files
+        if (uploadedFile.ContentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || uploadedFile.FileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
+        {
+            try
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await uploadedFile.CopyToAsync(ms);
+                    ms.Position = 0;
+                    // Read DOCX contents
+                    string docxText = ReadDocxContents(ms);
+                    TempData["DocxContent"] = docxText;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["DocxContent"] = $"Error reading DOCX file: {ex.Message}";
+            }
+        }
+        else
+        {
+            TempData["DocxContent"] = null;
+        }
+
         return RedirectToAction("Index");
     }
-}
+    // Helper method to read DOCX contents
+    private string ReadDocxContents(Stream docxStream)
+    {
+        try
+        {
+            using (var wordDoc = WordprocessingDocument.Open(docxStream, false))
+            {
+                if (wordDoc.MainDocumentPart == null || wordDoc.MainDocumentPart.Document == null || wordDoc.MainDocumentPart.Document.Body == null)
+                {
+                    return "DOCX file is empty or invalid.";
+                }
+                var body = wordDoc.MainDocumentPart.Document.Body;
+                return body.InnerText;
+            }
+        }
+        catch
+        {
+            return "Unable to read DOCX contents.";
+        }
+    }
+    }
