@@ -2,7 +2,63 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background: #f6f8fa;
+    }
+    .chat-box {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        max-width: 420px;
+        margin: 60px auto;
+        padding: 32px 28px 24px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .chat-box h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #1b6ec2;
+    }
+    .chat-box p {
+        color: #444;
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+    .file-upload {
+        width: 100%;
+        margin-bottom: 18px;
+    }
+    .submit-btn {
+        width: 100%;
+        background: #1b6ec2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .submit-btn:hover {
+        background: #155a9c;
+    }
+</style>
+
+<div class="chat-box">
+    <h2>Upload Your Document</h2>
+    <p>
+        To get started, please upload your document using the form below.<br>
+        Supported formats: PDF, DOCX, TXT.<br>
+        After uploading, click Submit to process your file.
+    </p>
+    <form method="post" enctype="multipart/form-data">
+        <input class="file-upload" type="file" name="uploadedFile" accept=".pdf,.docx,.txt" required />
+        <button class="submit-btn" type="submit">Submit</button>
+    </form>
 </div>
