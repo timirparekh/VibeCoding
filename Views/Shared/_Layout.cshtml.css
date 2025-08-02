@@ -46,3 +46,59 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+/* Custom styles for chat-GPT style upload box */
+.page-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e3eafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-box {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(60, 80, 120, 0.12);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1b6ec2;
+  text-align: center;
+}
+
+.chat-instructions {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.chat-upload {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.chat-file-input {
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.chat-submit-btn {
+  width: 100%;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  padding: 0.6rem 0;
+  box-shadow: 0 2px 8px rgba(27, 110, 194, 0.08);
+}
