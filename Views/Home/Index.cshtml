@@ -57,8 +57,10 @@
         Supported formats: PDF, DOCX, TXT.<br>
         After uploading, click Submit to process your file.
     </p>
-    <form method="post" enctype="multipart/form-data">
-        <input class="file-upload" type="file" name="uploadedFile" accept=".pdf,.docx,.txt" required />
+    <form method="post" enctype="multipart/form-data" style="width:100%">
+        <div class="mb-3 w-100">
+            <input class="form-control" type="file" id="uploadedFile" name="uploadedFile" accept=".pdf,.docx,.txt" required />
+        </div>
         <button class="submit-btn" type="submit">Submit</button>
     </form>
 </div>
