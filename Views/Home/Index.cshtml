@@ -57,10 +57,34 @@
         Supported formats: PDF, DOCX, TXT.<br>
         After uploading, click Submit to process your file.
     </p>
-    <form method="post" enctype="multipart/form-data" style="width:100%">
+    <form method="post" enctype="multipart/form-data" style="width:100%" action="/Home/UploadFile" id="uploadForm">
         <div class="mb-3 w-100">
             <input class="form-control" type="file" id="uploadedFile" name="uploadedFile" accept=".pdf,.docx,.txt" required />
         </div>
-        <button class="submit-btn" type="submit">Submit</button>
+        <button class="submit-btn" id="submitBtn" type="submit">Submit</button>
     </form>
+    <div id="uploadMessageBox" style="display:none; margin-top:20px; background:#e6ffed; color:#155724; border-radius:8px; padding:16px; text-align:center;"></div>
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('uploadForm');
+        var submitBtn = document.getElementById('submitBtn');
+        var messageBox = document.getElementById('uploadMessageBox');
+
+        form.addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            submitBtn.style.background = '#b0b0b0';
+        });
+
+        // Show message if present from server
+        var msg = '@TempData["UploadMessage"]';
+        if (msg && msg !== '') {
+            messageBox.textContent = msg;
+            messageBox.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.style.background = '';
+        }
+    });
+</script>
 </div>

@@ -21,4 +21,17 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    [HttpPost]
+    public async Task<IActionResult> UploadFile(IFormFile uploadedFile)
+    {
+        if (uploadedFile == null || uploadedFile.Length == 0)
+        {
+            TempData["UploadMessage"] = "No file selected.";
+            return RedirectToAction("Index");
+        }
+
+        TempData["UploadMessage"] = "Success in uploading file";
+        return RedirectToAction("Index");
+    }
 }
