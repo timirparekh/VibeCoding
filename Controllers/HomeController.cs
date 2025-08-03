@@ -34,8 +34,6 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         }
 
-        TempData["UploadMessage"] = "Success in uploading file";
-
         // Only process DOCX files
         if (uploadedFile.ContentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || uploadedFile.FileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
         {
