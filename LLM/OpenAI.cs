@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Azure;
 using Azure.AI.OpenAI;
 using OpenAI.Chat;
@@ -20,7 +21,7 @@ public class OpenAI
         this.model = configuration["OpenAI:Model"] ?? string.Empty;
     }
 
-    public async Task<string> GetSummary(string docxText)
+    public async Task<FinalReport> GetSummary(string docxText)
     {
         AzureOpenAIClient azureClient = new AzureOpenAIClient(new Uri(endPoint), new AzureKeyCredential(apiKey));
         ChatClient chatClient = azureClient.GetChatClient(model);
@@ -66,7 +67,8 @@ public class OpenAI
         jsonResponse = jsonResponse.Replace("```json", string.Empty)
                                    .Replace("```", string.Empty)
                                    .Trim();
-        return jsonResponse;
+
+        return ParseJsonToFinalReport(jsonResponse);
     }
 
     public async Task<FinalReport> GetSummaryTest(string docxText)
@@ -88,5 +90,63 @@ public class OpenAI
             FollowUp = new List<string> { "Follow Up 1", "Follow Up 2" },
             MajorObservations = new List<string> { "Observation 1", "Observation 2" }
         };
+    }
+
+    private FinalReport ParseJsonToFinalReport(string json)
+    {
+        FinalReport report = new FinalReport();
+        var jsonOption = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true
+        };
+        var jsonResponse = JsonSerializer.Deserialize<Dictionary<string, object>>(json, jsonOption);
+
+        if (jsonResponse != null)
+        {
+            if (jsonResponse.TryGetValue("Client", out var client)) report.Client = client?.ToString() ?? string.Empty;
+            if (jsonResponse.TryGetValue("Audit Type", out var auditType)) report.AuditType = auditType?.ToString() ?? string.Empty;
+            if (jsonResponse.TryGetValue("Audit Period", out var auditPeriod)) report.AuditPeriod = auditPeriod?.ToString() ?? string.Empty;
+            if (jsonResponse.TryGetValue("Audit Team Lead", out var auditTeamLead)) report.AuditTeamLead = auditTeamLead?.ToString() ?? string.Empty;
+            if (jsonResponse.TryGetValue("Audit Manager", out var auditManager)) report.AuditManager = auditManager?.ToString() ?? string.Empty;
+            if (jsonResponse.TryGetValue("Engagement & Onboarding", out var engagementAndOnboarding) && engagementAndOnboarding is JsonElement onboardingElement)
+            {
+                report.EngagementAndOnboarding = onboardingElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Audit Planning", out var auditPlanning) && auditPlanning is JsonElement planningElement)
+            {
+                report.AuditPlanning = planningElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Fieldwork Execution", out var fieldworkExecution) && fieldworkExecution is JsonElement executionElement)
+            {
+                report.FieldworkExecution = executionElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Reporting", out var reporting) && reporting is JsonElement reportingElement)
+            {
+                report.Reporting = reportingElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Compliance and Confidentiality", out var complianceAndConfidentiality) && complianceAndConfidentiality is JsonElement complianceElement)
+            {
+                report.ComplianceAndConfidentiality = complianceElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Post-Audit Review", out var postAuditReview) && postAuditReview is JsonElement reviewElement)
+            {
+                report.PostAuditReview = reviewElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Attachments", out var attachments) && attachments is JsonElement attachmentsElement)
+            {
+                report.Attachments = attachmentsElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Follow up", out var followUp) && followUp is JsonElement followUpElement)
+            {
+                report.FollowUp = followUpElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+            if (jsonResponse.TryGetValue("Any major observations", out var majorObservations) && majorObservations is JsonElement observationsElement)
+            {
+                report.MajorObservations = observationsElement.Deserialize<List<string>>() ?? new List<string>();
+            }
+        }
+
+        return report;
     }
 }
