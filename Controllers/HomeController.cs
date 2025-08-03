@@ -8,10 +8,12 @@ namespace VibeCoding.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly VibeCoding.LLM.OpenAI _openAI;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, VibeCoding.LLM.OpenAI openAI)
     {
         _logger = logger;
+        _openAI = openAI;
     }
 
     public IActionResult Index()
@@ -45,7 +47,9 @@ public class HomeController : Controller
                     ms.Position = 0;
                     // Read DOCX contents
                     string docxText = ReadDocxContents(ms);
-                    TempData["DocxContent"] = docxText;
+
+                    string aiSummary = await _openAI.GetSummary(docxText);
+                    TempData["DocxContent"] = aiSummary;
                 }
             }
             catch (Exception ex)
@@ -80,4 +84,4 @@ public class HomeController : Controller
             return "Unable to read DOCX contents.";
         }
     }
-    }
+}

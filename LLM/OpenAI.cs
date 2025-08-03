@@ -36,7 +36,29 @@ public class OpenAI
         List<ChatMessage> messages = new List<ChatMessage>
         {
             new SystemChatMessage("You are a large language model trained by OpenAI. You can provide answers to questions as per the output format."),
-            new UserChatMessage("")
+            new UserChatMessage(@"Output format:
+            ```json
+            {
+            ""Client"": """",
+            ""Audit Type"": """",
+            ""Audit Period"": """",
+            ""Audit Team Lead"": """",
+            ""Audit Manager"": """",
+            ""Engagement & Onboarding"": [],
+            ""Audit Planning"": [],
+            ""Fieldwork Execution"": [],
+            ""Reporting"": [],
+            ""Compliance and Confidentiality"": [],
+            ""Post-Audit Review"": [],
+            ""Attachments"": [],
+            ""Follow up"": [],
+            ""Any major observations"": [],
+            }
+            ```
+            Text to summarize is here.
+            
+            Output:"
+            ),
         };
 
         var response = await chatClient.CompleteChatAsync(messages, requestOptions);

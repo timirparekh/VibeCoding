@@ -8,6 +8,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddSingleton<VibeCoding.LLM.OpenAI>();
 
         var app = builder.Build();
 
