@@ -2,6 +2,7 @@ namespace VibeCoding.Models;
 
 public class FinalReport
 {
+    public bool IsInitialLoad { get; set; } = true;
     public string Client { get; set; }
     public string AuditType { get; set; }
     public string AuditPeriod { get; set; }

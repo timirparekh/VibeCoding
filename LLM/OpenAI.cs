@@ -75,6 +75,7 @@ public class OpenAI
     {
         return new FinalReport
         {
+            IsInitialLoad = false,
             Client = "XYZ Manufacturing Ltd.",
             AuditType = "Financial Audit",
             AuditPeriod = "July 1, 2025 - December 31, 2025",
@@ -99,14 +100,15 @@ public class OpenAI
                 "Key lesson: more rigorous checks needed in inventory management" },
             Attachments = new List<string> { "Engagement letter", "Audit Plan", "Risk assessment document", "Checklists and workpapers",
             "Correspondence logs", "Final reports", "Review notes and feedback" },
-            FollowUp = new List<string> { "SOPs to be reviewed annually or after major/mandatory regulartory changes"},
-            MajorObservations = new List<string> { "High risk identified in inventory reporting; more rigorous inventory management checks recommended"}
+            FollowUp = new List<string> { "SOPs to be reviewed annually or after major/mandatory regulartory changes" },
+            MajorObservations = new List<string> { "High risk identified in inventory reporting; more rigorous inventory management checks recommended" }
         };
     }
 
     private FinalReport ParseJsonToFinalReport(string json)
     {
         FinalReport report = new FinalReport();
+        report.IsInitialLoad = false;
         var jsonOption = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,

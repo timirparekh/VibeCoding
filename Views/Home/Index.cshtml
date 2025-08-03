@@ -73,7 +73,7 @@
         </div>
     }
 
-    @if (Model != null)
+    @if (Model != null && !Model.IsInitialLoad)
     {
         <div id="docxContentSection"
             style="margin-top:24px; background:#f0f7ff; color:#222; border-radius:12px; padding:20px; text-align:left; min-height:80px; width:100%;">
