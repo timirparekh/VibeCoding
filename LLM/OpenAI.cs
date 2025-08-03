@@ -75,20 +75,32 @@ public class OpenAI
     {
         return new FinalReport
         {
-            Client = "Test Client",
-            AuditType = "Test Audit Type",
-            AuditPeriod = "Test Period",
+            Client = "XYZ Manufacturing Ltd.",
+            AuditType = "Financial Audit",
+            AuditPeriod = "July 1, 2025 - December 31, 2025",
             AuditTeamLead = "Test Team Lead",
             AuditManager = "Test Manager",
-            EngagementAndOnboarding = new List<string> { "Engagement 1", "Engagement 2" },
-            AuditPlanning = new List<string> { "Planning 1", "Planning 2" },
-            FieldworkExecution = new List<string> { "Execution 1", "Execution 2" },
-            Reporting = new List<string> { "Report 1", "Report 2" },
-            ComplianceAndConfidentiality = new List<string> { "Compliance 1", "Confidentiality 1" },
-            PostAuditReview = new List<string> { "Review 1", "Review 2" },
-            Attachments = new List<string> { "Attachment 1", "Attachment 2" },
-            FollowUp = new List<string> { "Follow Up 1", "Follow Up 2" },
-            MajorObservations = new List<string> { "Observation 1", "Observation 2" }
+            EngagementAndOnboarding = new List<string> { "Conducted KYC (Know Your Customer) procedures; documentation collected and verified",
+                "KYC completed successfully", "Performed conflict-of-interest checks: no issues found.",
+                "Obtained engagement letter signed by client on July 5, 2025." },
+            AuditPlanning = new List<string> { "Audit plan prepared and approved on July 10, 2025",
+                "Procedures to be audited identified.", "Risk assessment conducted - high risk noted in inventory reporting",
+                "Roles and responsibilities assigned to team members.",
+                "Time estimates and schedules determined; audit scheduled to start August 1." },
+            FieldworkExecution = new List<string> { "Standard audit checklist followed.",
+            "All supporting doucmentation (invoices, receipts, payroll logs) collected and verified.",
+            "Weekly internal review meetings held; additional procedures discussed, planned and execute.",
+            "Findings logged in audit workpapers."},
+            Reporting = new List<string> { "Draft audit repot with executive summary, findings and recommendations prepared in January 2026.",
+                "Quality Assurance Officer (QAO) reviewed report on January 10." },
+            ComplianceAndConfidentiality = new List<string> { "Team signed confidentiality agreement with the client.",
+                "All client data stored securely with encryption." },
+            PostAuditReview = new List<string> { "Debrief meeting held on August 20.",
+                "Key lesson: more rigorous checks needed in inventory management" },
+            Attachments = new List<string> { "Engagement letter", "Audit Plan", "Risk assessment document", "Checklists and workpapers",
+            "Correspondence logs", "Final reports", "Review notes and feedback" },
+            FollowUp = new List<string> { "SOPs to be reviewed annually or after major/mandatory regulartory changes"},
+            MajorObservations = new List<string> { "High risk identified in inventory reporting; more rigorous inventory management checks recommended"}
         };
     }
 
