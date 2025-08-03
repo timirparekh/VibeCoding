@@ -1,4 +1,5 @@
-﻿@{
+﻿@model VibeCoding.Models.FinalReport
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -65,15 +66,119 @@
         <button class="submit-btn" id="submitBtn" type="submit">Submit</button>
     </form>
 
-    <div id="uploadMessageBox"
-        style="display:none; margin-top:20px; background:#e6ffed; color:#155724; border-radius:8px; padding:16px; text-align:center;">
-    </div>
+    @if (ViewBag.UploadMessage != null)
+    {
+        <div id="uploadMessageBox"
+            style="margin-top:20px; background:#e6ffed; color:#155724; border-radius:8px; padding:16px; text-align:center;">
+            @ViewBag.UploadMessage
+        </div>
+    }
 
-    <div id="docxContentSection"
-        style="display:@(TempData["DocxContent"] != null ? "block" : "none"); margin-top:24px; background:#f0f7ff; color:#222; border-radius:12px; padding:20px; text-align:left; min-height:80px; width:100%;">
-        <h3 style="color:#1b6ec2; font-size:1.2rem; margin-bottom:10px;">Document Contents</h3>
-        <pre style="white-space:pre-wrap; word-break:break-word; font-size:1rem;">@TempData["DocxContent"]</pre>
-    </div>
+    @if (Model != null)
+    {
+        <div id="docxContentSection"
+            style="margin-top:24px; background:#f0f7ff; color:#222; border-radius:12px; padding:20px; text-align:left; min-height:80px; width:100%;">
+            <h3 style="color:#1b6ec2; font-size:1.2rem; margin-bottom:10px;">Document Contents</h3>
+            <ul style="list-style:none; padding-left:0;">
+                @if (!string.IsNullOrWhiteSpace(Model.Client)) {
+                    <li><strong>Client:</strong> @Model.Client</li>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.AuditType)) {
+                    <li><strong>Audit Type:</strong> @Model.AuditType</li>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.AuditPeriod)) {
+                    <li><strong>Audit Period:</strong> @Model.AuditPeriod</li>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.AuditTeamLead)) {
+                    <li><strong>Audit Team Lead:</strong> @Model.AuditTeamLead</li>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.AuditManager)) {
+                    <li><strong>Audit Manager:</strong> @Model.AuditManager</li>
+                }
+                @if (Model.EngagementAndOnboarding != null && Model.EngagementAndOnboarding.Any()) {
+                    <li><strong>Engagement &amp; Onboarding:</strong>
+                        <ul>
+                        @foreach (var item in Model.EngagementAndOnboarding) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.AuditPlanning != null && Model.AuditPlanning.Any()) {
+                    <li><strong>Audit Planning:</strong>
+                        <ul>
+                        @foreach (var item in Model.AuditPlanning) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.FieldworkExecution != null && Model.FieldworkExecution.Any()) {
+                    <li><strong>Fieldwork Execution:</strong>
+                        <ul>
+                        @foreach (var item in Model.FieldworkExecution) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.Reporting != null && Model.Reporting.Any()) {
+                    <li><strong>Reporting:</strong>
+                        <ul>
+                        @foreach (var item in Model.Reporting) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.ComplianceAndConfidentiality != null && Model.ComplianceAndConfidentiality.Any()) {
+                    <li><strong>Compliance and Confidentiality:</strong>
+                        <ul>
+                        @foreach (var item in Model.ComplianceAndConfidentiality) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.PostAuditReview != null && Model.PostAuditReview.Any()) {
+                    <li><strong>Post-Audit Review:</strong>
+                        <ul>
+                        @foreach (var item in Model.PostAuditReview) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.Attachments != null && Model.Attachments.Any()) {
+                    <li><strong>Attachments:</strong>
+                        <ul>
+                        @foreach (var item in Model.Attachments) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.FollowUp != null && Model.FollowUp.Any()) {
+                    <li><strong>Follow up:</strong>
+                        <ul>
+                        @foreach (var item in Model.FollowUp) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+                @if (Model.MajorObservations != null && Model.MajorObservations.Any()) {
+                    <li><strong>Any major observations:</strong>
+                        <ul>
+                        @foreach (var item in Model.MajorObservations) {
+                            <li>• @item</li>
+                        }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
     </style>
 
     <script>

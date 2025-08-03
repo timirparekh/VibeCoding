@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
 using Azure;
 using Azure.AI.OpenAI;
 using OpenAI.Chat;
+using VibeCoding.Models;
 
 namespace VibeCoding.LLM;
 
@@ -67,5 +67,26 @@ public class OpenAI
                                    .Replace("```", string.Empty)
                                    .Trim();
         return jsonResponse;
+    }
+
+    public async Task<FinalReport> GetSummaryTest(string docxText)
+    {
+        return new FinalReport
+        {
+            Client = "Test Client",
+            AuditType = "Test Audit Type",
+            AuditPeriod = "Test Period",
+            AuditTeamLead = "Test Team Lead",
+            AuditManager = "Test Manager",
+            EngagementAndOnboarding = new List<string> { "Engagement 1", "Engagement 2" },
+            AuditPlanning = new List<string> { "Planning 1", "Planning 2" },
+            FieldworkExecution = new List<string> { "Execution 1", "Execution 2" },
+            Reporting = new List<string> { "Report 1", "Report 2" },
+            ComplianceAndConfidentiality = new List<string> { "Compliance 1", "Confidentiality 1" },
+            PostAuditReview = new List<string> { "Review 1", "Review 2" },
+            Attachments = new List<string> { "Attachment 1", "Attachment 2" },
+            FollowUp = new List<string> { "Follow Up 1", "Follow Up 2" },
+            MajorObservations = new List<string> { "Observation 1", "Observation 2" }
+        };
     }
 }

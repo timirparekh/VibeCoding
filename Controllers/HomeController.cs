@@ -16,9 +16,9 @@ public class HomeController : Controller
         _openAI = openAI;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(FinalReport? report = null)
     {
-        return View();
+        return View(report);
     }
     public IActionResult Error()
     {
@@ -30,10 +30,11 @@ public class HomeController : Controller
     {
         if (uploadedFile == null || uploadedFile.Length == 0)
         {
-            TempData["UploadMessage"] = "No file selected.";
-            return RedirectToAction("Index");
+            ViewBag.UploadMessage = "No file selected.";
+            return View("Index", null);
         }
 
+        FinalReport? aiSummary = null;
         // Only process DOCX files
         if (uploadedFile.ContentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || uploadedFile.FileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
         {
@@ -46,21 +47,22 @@ public class HomeController : Controller
                     // Read DOCX contents
                     string docxText = ReadDocxContents(ms);
 
-                    // string aiSummary = await _openAI.GetSummary(docxText);
-                    TempData["DocxContent"] = docxText;
+                    aiSummary = await _openAI.GetSummaryTest(docxText);
                 }
             }
             catch (Exception ex)
             {
-                TempData["DocxContent"] = $"Error reading DOCX file: {ex.Message}";
+                ViewBag.UploadMessage = $"Error reading DOCX file: {ex.Message}";
+                return View("Index", null);
             }
         }
         else
         {
-            TempData["DocxContent"] = null;
+            ViewBag.UploadMessage = "Unsupported file type.";
+            return View("Index", null);
         }
 
-        return RedirectToAction("Index");
+        return View("Index", aiSummary);
     }
     // Helper method to read DOCX contents
     private string ReadDocxContents(Stream docxStream)
