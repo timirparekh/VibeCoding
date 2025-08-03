@@ -63,6 +63,9 @@ public class OpenAI
 
         var response = await chatClient.CompleteChatAsync(messages, requestOptions);
         var jsonResponse = response.Value.Content[0].Text;
+        jsonResponse = jsonResponse.Replace("```json", string.Empty)
+                                   .Replace("```", string.Empty)
+                                   .Trim();
         return jsonResponse;
     }
 }

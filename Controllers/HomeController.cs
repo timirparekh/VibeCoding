@@ -48,8 +48,8 @@ public class HomeController : Controller
                     // Read DOCX contents
                     string docxText = ReadDocxContents(ms);
 
-                    string aiSummary = await _openAI.GetSummary(docxText);
-                    TempData["DocxContent"] = aiSummary;
+                    // string aiSummary = await _openAI.GetSummary(docxText);
+                    TempData["DocxContent"] = docxText;
                 }
             }
             catch (Exception ex)
