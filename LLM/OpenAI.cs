@@ -56,7 +56,7 @@ public class OpenAI
             ""Any major observations"": [],
             }
             ```
-            Text to summarize is here.
+            " + docxText + @"
             
             Output:"
             ),

@@ -47,7 +47,7 @@ public class HomeController : Controller
                     // Read DOCX contents
                     string docxText = ReadDocxContents(ms);
 
-                    aiSummary = await _openAI.GetSummaryTest(docxText);
+                    aiSummary = await _openAI.GetSummary(docxText);
                 }
             }
             catch (Exception ex)
